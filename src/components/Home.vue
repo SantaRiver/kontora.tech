@@ -1,58 +1,28 @@
 <template>
-  <div
-    :class="{ 'bg-white': !nightMode, 'bg-dark': nightMode }"
-    class="pt-5 p-st"
-  >
+  <div class="hero-section">
+    <div class="hero-blob"></div>
     <div
-      class="container"
+      class="container hero-container"
       data-aos="fade"
       data-aos-once="true"
       data-aos-duration="1000"
     >
-      <div class="row align-items-center">
-        <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12 text-center">
-          <img :src="picture" />
-        </div>
-        <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12 pt-5">
-          <span
-            class="home-title"
-            :class="{ pgray: !nightMode, 'text-light': nightMode }"
-            >hello there!</span
-          >
-          <div>
-            <p v-html="description"></p>
-          </div>
-          <div class="text-center pb-4">
-            <button
-              class="btn btn-outline-secondary mx-2 "
-              @click="open('linkedin')"
-              v-tooltip.bottom="'LinkedIn'"
-            >
-              <i class="fab fa-linkedin"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('github')"
-              v-tooltip.bottom="'GitHub'"
-            >
-              <i class="fab fa-github"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('angellist')"
-              v-tooltip.bottom="'AngelList'"
-            >
-              <i class="fab fa-angellist"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('resume')"
-              v-tooltip.bottom="'Resume'"
-            >
-              <i class="fa fa-file"></i>
-            </button>
-          </div>
-        </div>
+      <div class="hero-label">Веб-студия · Россия</div>
+      <h1 class="hero-title">
+        Делаем сайты,<br />
+        которые <span class="accent">работают.</span>
+      </h1>
+      <p class="hero-sub">{{ description_short }}</p>
+      <div class="hero-actions">
+        <a class="btn-primary-cta" href="/portfolio" v-scroll-to="'#portfolio'">Смотреть работы</a>
+        <a class="btn-secondary-cta" href="/contact" v-scroll-to="'#contact'">Обсудить проект</a>
+      </div>
+      <div class="hero-stats">
+        <span>5+ лет опыта</span>
+        <span class="sep">·</span>
+        <span>47 проектов</span>
+        <span class="sep">·</span>
+        <span>Full Stack</span>
       </div>
     </div>
   </div>
@@ -61,13 +31,8 @@
 <script>
 import info from "../../info";
 
-import Wave from "./helpers/Wave";
-
 export default {
   name: "Home",
-  components: {
-    Wave,
-  },
   props: {
     nightMode: {
       type: Boolean,
@@ -75,89 +40,153 @@ export default {
   },
   data() {
     return {
-      picture: info.flat_picture,
-      description: info.description,
-      name: info.name,
+      description_short: info.description_short,
       linkedin: info.links.linkedin,
       github: info.links.github,
       angellist: info.links.angellist,
-      resume: info.links.resume
+      resume: info.links.resume,
     };
-  },
-  methods: {
-    open(link) {
-      switch (link) {
-        case "linkedin":
-          window.open(this.linkedin, "_blank");
-          break;
-        case "github":
-          window.open(this.github, "_blank");
-          break;
-        case "angellist":
-          window.open(this.angellist, "_blank");
-          break;
-        case "resume":
-          window.open(this.resume, "_blank");
-          break;
-      }
-    },
   },
 };
 </script>
 
 <style scoped>
-.home-title {
-  font-size: 28px;
-  font-weight: 500;
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--bg-primary);
+  overflow: hidden;
+  padding-top: 80px;
 }
 
-img {
-  max-width: 300px;
-  margin-top: 60px;
-  transform: rotateY(180deg);
+.hero-container {
+  position: relative;
+  z-index: 1;
+  padding: 80px 15px;
 }
 
-@media only screen and (max-width: 580px) {
-  img {
-    object-fit: cover;
-    border-radius: 50%;
-    height: 200px;
-    width: 200px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 2px solid rgb(205, 205, 205);
+.hero-blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 92, 0, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  filter: blur(40px);
+  animation: blobPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes blobPulse {
+  from {
+    transform: translateY(-50%) scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(-50%) scale(1.15);
+    opacity: 1;
   }
 }
 
-.fa {
+.hero-label {
+  display: inline-block;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.btn-primary-cta {
+  background: var(--accent);
+  color: #000 !important;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: var(--transition);
   font-size: 15px;
 }
 
-.btn {
-  border-color: #669db3ff;
-  color: #669db3ff;
+.btn-primary-cta:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  text-decoration: none !important;
 }
 
-.btn:hover {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
+.btn-secondary-cta {
+  border: 1px solid var(--border);
+  color: var(--text-primary) !important;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: var(--transition);
+  font-size: 15px;
 }
 
-.btn:focus {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
+.btn-secondary-cta:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  text-decoration: none !important;
 }
 
-.btn:focus {
-  outline: none !important;
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  flex-wrap: wrap;
 }
 
-p {
-  text-align: justify;
-  font-weight: 400;
+.sep {
+  opacity: 0.3;
 }
 
-/* LEAVES */
+@media (max-width: 768px) {
+  .hero-blob {
+    width: 300px;
+    height: 300px;
+    right: -50px;
+  }
+
+  .hero-container {
+    padding: 40px 15px;
+  }
+}
 </style>
