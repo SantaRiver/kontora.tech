@@ -1,11 +1,7 @@
 <template>
   <div class="logo-div">
-    <span
-      class="logo-title-name"
-      :class="{ pgray: !nightMode, 'text-light': nightMode }"
-      >{{ name }}</span
-    >
-    <span class="logo-title-dot pblue">{{ dot }}</span>
+    <span class="logo-title-name">{{ name }}</span>
+    <span class="logo-title-dot">{{ dot }}</span>
   </div>
 </template>
 
@@ -29,20 +25,27 @@ export default {
 </script>
 
 <style scoped>
-.logo-div:hover .logo-title-name {
-  letter-spacing: 0px;
-  transition: 0.5s all;
+.logo-div {
+  display: flex;
+  align-items: baseline;
 }
 
 .logo-title-name {
-  font-size: 35px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  transition: 0.5s all;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--text-primary);
+  transition: var(--transition);
+  text-transform: lowercase;
 }
 
 .logo-title-dot {
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.logo-div:hover .logo-title-name {
+  letter-spacing: 4px;
 }
 </style>

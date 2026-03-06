@@ -1,13 +1,6 @@
 <template>
   <div>
-    <nav
-      class="navbar navbar-expand-lg navbar-light fixed-top p-st"
-      :class="{
-        'bg-light': !nightMode,
-        'navbar-blur': navbarConfig.blur,
-        'bg-dark2': nightMode,
-      }"
-    >
+    <nav class="navbar navbar-expand-lg fixed-top p-st navbar-dark-custom">
       <div class="container">
         <a
           class="navbar-brand"
@@ -17,7 +10,7 @@
           <Logo :nightMode="nightMode" />
         </a>
         <button
-          class="navbar-toggler"
+          class="navbar-toggler-custom"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -25,63 +18,55 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span style="color: gray; font-size: 23px;"
-            ><i class="fas fa-bars"></i
-          ></span>
+          <span><i class="fas fa-bars"></i></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ml-auto align-items-center">
             <li class="nav-item mx-2">
               <a
-                class="nav-link"
+                class="nav-link-custom"
                 href="/about"
                 @click.prevent="$emit('scroll', 'about')"
-                :class="{ 'text-light': nightMode }"
                 >about</a
               >
             </li>
             <li class="nav-item mx-2">
               <a
-                class="nav-link"
+                class="nav-link-custom"
                 href="/skills"
                 @click.prevent="$emit('scroll', 'skills')"
-                :class="{ 'text-light': nightMode }"
                 >skills</a
               >
             </li>
-            <li class="nav-item mx-2 ">
+            <li class="nav-item mx-2">
               <a
-                class="nav-link"
+                class="nav-link-custom"
                 href="/portfolio"
                 @click.prevent="$emit('scroll', 'portfolio')"
-                :class="{ 'text-light': nightMode }"
                 >portfolio</a
               >
             </li>
             <li class="nav-item mx-2">
               <a
-                class="nav-link"
+                class="nav-link-custom"
                 href="/contact"
                 @click.prevent="$emit('scroll', 'contact')"
-                :class="{ 'text-light': nightMode }"
                 >contact</a
               >
             </li>
-            <li class="nav-item ml-2">
+            <li class="nav-item mx-2">
               <a
-                class="nav-link"
+                class="nav-link-custom mode-btn"
                 href="#"
                 @click.prevent="switchMode"
-                :class="{ 'text-light': nightMode }"
-                ><i
-                  :class="{
-                    'fas fa-moon': nightMode,
-                    'far fa-moon': !nightMode,
-                  }"
-                  v-tooltip.bottom="nightMode ? 'Light Mode' : 'Night Mode'"
-                ></i
-              ></a>
+                v-tooltip.bottom="nightMode ? 'Light Mode' : 'Night Mode'"
+              >
+                <i :class="{ 'fas fa-moon': nightMode, 'far fa-moon': !nightMode }"></i>
+              </a>
+            </li>
+            <li class="nav-item ml-3">
+              <a class="btn-cta-nav" href="/contact" @click.prevent="$emit('scroll', 'contact')">Обсудить проект</a>
             </li>
           </ul>
         </div>
@@ -120,27 +105,62 @@ export default {
 </script>
 
 <style scoped>
-.nav-link {
+.navbar-dark-custom {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-link-custom {
   font-weight: 500;
+  font-size: 14px;
+  color: var(--text-secondary) !important;
+  text-decoration: none;
+  transition: var(--transition);
+  padding: 6px 4px;
 }
 
-button {
-  border: none;
+.nav-link-custom:hover {
+  color: var(--text-primary) !important;
+  text-decoration: none;
+}
+
+.mode-btn {
+  font-size: 16px;
+}
+
+.navbar-toggler-custom {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
   outline: none;
 }
 
-button:hover {
-  border: none;
-  outline: none;
+.navbar-toggler-custom:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
-nav {
-  border-bottom: 1px solid rgba(160, 159, 159, 0.336);
-  position: fixed !important;
+.btn-cta-nav {
+  border: 1px solid var(--accent);
+  color: var(--accent) !important;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.navbar-blur {
-  background-color: #ffffff7e;
-  backdrop-filter: blur(12px);
+.btn-cta-nav:hover {
+  background: var(--accent);
+  color: #000 !important;
+  text-decoration: none;
 }
 </style>

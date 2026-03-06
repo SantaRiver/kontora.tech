@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="{ 'text-dark': !nightMode, 'text-light': nightMode }">
+  <div id="app">
     <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
     <div class="parent">
       <Home :nightMode="nightMode" />
@@ -79,66 +79,111 @@ export default {
 </script>
 
 <style>
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --accent: #ff5c00;
+  --accent-hover: #ff7a2e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888888;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(255, 92, 0, 0.35);
+  --radius: 14px;
+  --transition: all 0.25s ease;
+}
+
+body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--accent);
+  color: #000;
+}
+
 #app {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: var(--text-primary);
   width: 100%;
+  background: var(--bg-primary);
 }
 
 @media screen and (max-width: 580px) {
   #app {
-    width: fit-content;
+    width: 100%;
   }
 }
 
 .parent {
-  margin-top: 38px;
-  padding-top: 40px;
+  margin-top: 0;
+  padding-top: 0;
   position: relative;
+  background: var(--bg-primary);
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 3px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+  margin: 16px auto 0;
+  border-radius: 2px;
 }
 
 .pgray {
-  color: #535a5e;
+  color: var(--text-secondary);
 }
 
 .pblue {
-  color: #669db3ff;
+  color: var(--accent);
 }
 
 .bg-dark2 {
-  background-color: #262c30 !important;
+  background-color: var(--bg-card) !important;
 }
 
 .text-light {
-  color: #d3d2d2 !important;
+  color: var(--text-primary) !important;
 }
 
 .p-st {
-  transition: all 0.5s !important;
+  transition: var(--transition) !important;
 }
 
-/* To set scrollbar width */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bg-primary);
   border-radius: 9px;
-  border: 2px solid white; /* Use your background color instead of White */
-  background-clip: content-box;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #333;
   border-radius: 9px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
@@ -149,11 +194,10 @@ export default {
 }
 
 .tooltip .tooltip-inner {
-  background: rgb(212, 149, 97);
-  color: white;
+  background: var(--accent);
+  color: #000;
   border-radius: 8px;
   font-size: 10px;
-  /* padding: 5px 10px 4px; */
 }
 
 .tooltip .tooltip-arrow {
@@ -162,7 +206,7 @@ export default {
   border-style: solid;
   position: absolute;
   margin: 5px;
-  border-color: rgb(212, 149, 97);
+  border-color: var(--accent);
   z-index: 1;
 }
 
