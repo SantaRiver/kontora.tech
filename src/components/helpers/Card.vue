@@ -1,57 +1,45 @@
 <template>
-  <div class="my-3 mx-3">
-    <div
-      class="card smcard"
-      :class="{
-        'pcard-dark': nightMode,
-        pcard: !nightMode,
-        'bg-dark3': nightMode,
-      }"
-    >
-      <div style="height: 180px;">
+  <div class="my-3 mx-2">
+    <div class="pcard smcard">
+      <div class="pcard-img-wrap">
         <img
-          class="card-img-top"
           :src="portfolio.pictures[0].img"
           alt="Card image cap"
         />
-      </div>
-      <div class="card-body pborder-top">
-        <h5 class="title2">{{ portfolio.name }}</h5>
-        <div>
-          <div class="pb-1 bheight">
-            <span
-              class="badge mr-2 mb-2 "
-              v-for="tech in portfolio.technologies"
-              :key="tech"
-              :class="{ 'bg-dark4': nightMode }"
-              >{{ tech }}</span
-            >
-          </div>
-          <p
-            class="title3 m-0 pb-2 pheight pt-1"
-            v-html="
-              portfolio.description.length > 100
-                ? portfolio.description.substring(0, 105) + '...'
-                : portfolio.description
-            "
-          >
-          </p>
+        <div class="pcard-overlay">
+          <button class="overlay-btn" @click.prevent="showModal">
+            <i class="fas fa-expand-alt"></i> подробнее
+          </button>
         </div>
-        <div class="text-center mt-2">
-          <button
-            href=""
-            class="btn-sm btn btn-outline-secondary no-outline"
-            @click.prevent="showModal"
+      </div>
+      <div class="card-body-custom">
+        <h5 class="card-title-custom">{{ portfolio.name }}</h5>
+        <div class="pb-2 tech-row">
+          <span
+            class="tech-tag mr-1 mb-1"
+            v-for="tech in portfolio.technologies"
+            :key="tech"
+            >{{ tech }}</span
           >
-            read more
+        </div>
+        <p
+          class="card-desc"
+          v-html="
+            portfolio.description.length > 100
+              ? portfolio.description.substring(0, 105) + '...'
+              : portfolio.description
+          "
+        ></p>
+        <div class="card-actions mt-2">
+          <button class="btn-card" @click.prevent="showModal">
+            читать далее
           </button>
           <button
-            href="#"
-            class="btn-sm btn btn-outline-secondary no-outline ml-4"
+            class="btn-card btn-card-visit"
             v-if="portfolio.visit"
             @click.prevent="open(portfolio.visit)"
           >
-            visit website
+            <i class="fas fa-external-link-alt"></i>
           </button>
         </div>
       </div>
@@ -82,129 +70,139 @@ export default {
 </script>
 
 <style scoped>
-img {
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-}
-
-.img-div img {
-  /* object-fit: cover;
-    overflow: hidden; */
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  /* object-position: 50% 120%;
-    max-width: 300px !important; */
-}
-
-.bheight {
-  height: 65px;
-  overflow: auto;
-}
-
-.pheight {
-  height: 110px;
-  max-height: 130px;
-  overflow: auto;
-  text-align: justify;
-}
-
-div.img-div {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.pborder-top {
-  border-top: 1px solid rgb(193, 193, 193);
-}
-
 .pcard {
-  background-color: rgb(255, 255, 255);
-  border-radius: 7px;
-  border: none;
-  box-shadow: 1px 1px 12px rgb(233, 233, 233);
-  transition: all 0.5s;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
   height: 460px;
+  display: flex;
+  flex-direction: column;
 }
 
 .pcard:hover {
-  transition: all 0.5s;
-  /* cursor: pointer; */
-  box-shadow: 1px 1px 15px rgb(216, 216, 216);
+  border-color: var(--border-accent);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(255, 92, 0, 0.1);
 }
 
-.pcard-dark {
-  border-radius: 7px;
+.pcard-img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+.pcard-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.pcard:hover .pcard-img-wrap img {
+  transform: scale(1.05);
+}
+
+.pcard-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.pcard:hover .pcard-overlay {
+  opacity: 1;
+}
+
+.overlay-btn {
+  background: var(--accent);
+  color: #000;
   border: none;
-  background-color: #30363a !important;
-  /* box-shadow: 1px 1px 12px rgb(53, 53, 53); */
-  transition: all 0.5s;
-  height: 460px;
-}
-
-.pcard-dark:hover {
-  transition: all 0.5s;
-  /* cursor: pointer; */
-  box-shadow: 1px 1px 12px rgb(53, 53, 53);
-}
-
-.pcard-body {
-  border-top: 1px solid rgb(220, 220, 220);
-  z-index: -1;
-  background-color: rgb(253, 254, 255);
-}
-
-.title {
-  font-size: 30px;
-  font-weight: 500;
-}
-.title1 {
-  font-size: 24px;
-  font-weight: 400;
-}
-
-.title2 {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.title3 {
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.badge {
-  background-color: rgb(211, 227, 233);
-  transition: all 0.5s;
-  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 6px;
   font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.btn {
-  border-color: #669db3ff;
-  color: #669db3ff;
+.overlay-btn:hover {
+  background: var(--accent-hover);
 }
 
-.btn:hover {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
+.card-body-custom {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.btn:focus {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
+.card-title-custom {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
 }
 
-.bg-dark3 {
-  background-color: rgb(82, 82, 82);
+.tech-row {
+  min-height: 50px;
+  overflow: hidden;
 }
 
-.bg-dark4 {
-  background-color: #494e55 !important;
+.tech-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex: 1;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-card {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  flex: 1;
+}
+
+.btn-card:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-card-visit {
+  flex: 0;
+  padding: 7px 12px;
 }
 </style>

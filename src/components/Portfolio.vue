@@ -1,12 +1,5 @@
 <template>
-  <div
-    class="py-4 p-st"
-    :class="{
-      'bg-light': !nightMode,
-      'bg-dark2': nightMode,
-      'text-light': nightMode,
-    }"
-  >
+  <div class="portfolio-section py-5">
     <div class="container">
       <div
         class="text-center"
@@ -14,23 +7,15 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <span
-          class="title text-center"
-          :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >portfolio.</span
-        >
+        <div class="section-title">portfolio.</div>
       </div>
-      <hr
-        width="50%"
-        :class="{ pgray: !nightMode, 'bg-secondary': nightMode }"
-      />
 
-      <vue-tabs :activeTextColor="!nightMode ? '#535A5E' : '#dfdfdf'">
+      <vue-tabs :activeTextColor="'#ff5c00'">
         <v-tab title="development">
           <br />
           <div class="row">
             <div
-              class="col-xl-4 col-bg-4 col-md-6 col-sm-12"
+              class="col-xl-4 col-md-6 col-sm-12"
               v-for="(portfolio, idx) in portfolio_info"
               :key="portfolio.name"
             >
@@ -50,7 +35,7 @@
             </div>
           </div>
           <div class="text-center py-3" v-if="showBtn !== 'show less'">
-            <button class="btn" @click.prevent="showMore">{{ showBtn }}</button>
+            <button class="btn-show-more" @click.prevent="showMore">{{ showBtn }}</button>
           </div>
         </v-tab>
 
@@ -59,45 +44,37 @@
             <div
               v-for="(design, idx) in desgin_info"
               :key="idx"
-              :class="{ 'mt-4': idx === 0 ? true : true }"
-              class="col-xl-6 col-bg-6 col-md-12 col-sm-12"
+              class="col-xl-6 col-md-12 col-sm-12 mt-4"
               style="position: relative;"
             >
-              <vueper-slides
-                :dragging-distance="50"
-                fixed-height="300px"
-                :bullets="false"
-                slide-content-outside="bottom"
-                style="position: aboslute"
+              <div class="design-slide-wrap">
+                <vueper-slides
+                  :dragging-distance="50"
+                  fixed-height="300px"
+                  :bullets="false"
+                  slide-content-outside="bottom"
                   @click.prevent="showDesignModalFn(design)"
-
-              >
-                <vueper-slide
-                  v-for="(slide, i) in design.pictures"
-                  :key="i"
-                  :image="slide.img"
-                />
-              </vueper-slides>
-              <div
-                style="width: 100%; display: flex; justify-content: space-between"
-                class="mt-2"
-              >
+                >
+                  <vueper-slide
+                    v-for="(slide, i) in design.pictures"
+                    :key="i"
+                    :image="slide.img"
+                  />
+                </vueper-slides>
+              </div>
+              <div class="design-meta mt-2">
                 <div>
-                  <div class="title2" style="font-weight: 500;">{{ design.title }}</div>
+                  <div class="design-title">{{ design.title }}</div>
                   <span
-                    class="badge mr-2 mb-2"
+                    class="tech-tag mr-2 mb-2"
                     v-for="tech in design.technologies"
                     :key="tech"
-                    :class="{ 'bg-dark4': nightMode }"
                     >{{ tech }}</span
                   >
-                  •
-                  <span class="date ml-1">{{design.date}}</span>
+                  <span class="design-date ml-1">· {{ design.date }}</span>
                 </div>
-
                 <button
-                  style="height: 31px; margin-top: 5px;"
-                  class="btn-sm btn btn-outline-secondary no-outline"
+                  class="btn-card"
                   @click.prevent="showDesignModalFn(design)"
                 >
                   read more
@@ -109,6 +86,7 @@
         </v-tab>
       </vue-tabs>
     </div>
+
     <transition name="modal">
       <Modal
         :showModal="showModal"
@@ -134,7 +112,6 @@
 import Card from "./helpers/Card";
 import Modal from "./helpers/Modal";
 import DesignModal from "./helpers/DesignModal";
-import Carousel from "./helpers/Carousel";
 import info from "../../info";
 
 import { VueTabs, VTab } from "vue-nav-tabs";
@@ -171,11 +148,6 @@ export default {
       number: 3,
       showBtn: "show more",
       shower: 0,
-      data: [
-        '<div class="example-slide">Slide 1</div>',
-        '<div class="example-slide">Slide 2</div>',
-        '<div class="example-slide">Slide 3</div>',
-      ],
     };
   },
   created() {
@@ -192,13 +164,6 @@ export default {
     },
   },
   methods: {
-    next() {
-      this.$refs.flickity.next();
-    },
-
-    previous() {
-      this.$refs.flickity.previous();
-    },
     closeModal() {
       this.showModal = false;
       this.showDesignModal = false;
@@ -241,23 +206,10 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  font-size: 30px;
-  font-weight: 500;
-}
-.title1 {
-  font-size: 24px;
-  font-weight: 400;
-}
-
-.title2 {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.title3 {
-  font-size: 16px;
-  font-weight: 400;
+.portfolio-section {
+  background: var(--bg-primary);
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
 }
 
 .modal-enter {
@@ -270,44 +222,45 @@ export default {
 
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 
-.btn {
-  border-color: rgb(212, 149, 97);
-  color: rgb(212, 149, 97);
+.btn-show-more {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.btn:hover {
-  background-color: rgb(212, 149, 97);
-  border-color: rgb(212, 149, 97);
-  color: white;
-}
-
-.btn:focus {
-  background-color: rgb(212, 149, 97);
-  border-color: rgb(212, 149, 97);
-  color: white;
+.btn-show-more:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /deep/ .vue-tabs .nav-tabs {
   border: none;
-  font-size: 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
   font-weight: 500;
   display: flex;
-
   justify-content: center;
+  margin-bottom: 8px;
 }
 
 /deep/ .vue-tabs .tabs__link {
-  color: #a0a0a0;
+  color: var(--text-secondary) !important;
 }
 
 /deep/ .vue-tabs .nav-tabs > li.active > a {
   background: transparent;
   border: none;
-  transition: all 0.5s;
+  color: var(--text-primary) !important;
+  transition: var(--transition);
   padding-right: 0;
   padding-left: 0;
   margin-right: 15px;
@@ -316,14 +269,14 @@ export default {
 
 /deep/ .vue-tabs .nav-tabs > li > a:hover {
   background: transparent;
-  color: #cbcbcb;
-  transition: all 0.5s;
+  color: var(--text-primary) !important;
+  transition: var(--transition);
 }
 
 /deep/ .vue-tabs .nav-tabs > li > a {
   background: transparent;
   border: none;
-  transition: all 0.5s;
+  transition: var(--transition);
 }
 
 /deep/ .vue-tabs .nav-tabs > li > a:after {
@@ -333,90 +286,82 @@ export default {
   bottom: 3px;
   border-width: 0 0 2px;
   border-style: solid;
-  transition: all 0.5s;
+  border-color: var(--accent);
+  transition: var(--transition);
 }
 
 /deep/ .vue-tabs .nav-tabs > li.active > a:after {
   width: 100%;
-  transition: all 0.5s;
 }
 
-.design-img {
-  width: 100%;
-  border-radius: 15px;
-  transition: all 0.5s;
+/deep/ .vueperslide {
+  border-radius: var(--radius) !important;
 }
 
-.dimg {
-  position: relative;
-  border-radius: 15px;
-}
-.middle {
-  transition: all 0.5s;
-  opacity: 0;
-  position: absolute;
-  bottom: 0px;
-  left: 70px;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 20px;
+/deep/ .vueperslides__parallax-wrapper {
+  border-radius: var(--radius) !important;
 }
 
-.dimg:hover .design-img {
-  position: relative;
-  border-radius: 15px;
-  opacity: 0.1;
-  cursor: pointer;
-}
-
-.dimg:hover .middle {
-  opacity: 1;
-}
-
-/deep/.vueperslide {
-  border-radius: 10px !important;
-}
-/deep/.vueperslides__parallax-wrapper {
-  border-radius: 10px !important;
-}
-
-.btn {
-  border-color: #669db3ff;
-  color: #669db3ff;
-}
-
-.btn:hover {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
-
-.btn:focus {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
 /deep/ .vueperslides__arrow {
   outline: none !important;
   border: none;
-  color: grey;
+  color: var(--text-secondary);
 }
 
-.badge {
-  background-color: rgb(211, 227, 233);
-  transition: all 0.5s;
-  font-weight: 500;
+.design-slide-wrap {
+  cursor: pointer;
+}
+
+.design-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.design-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.tech-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.design-date {
   font-size: 13px;
+  color: var(--text-secondary);
+  opacity: 0.75;
 }
 
-.bg-dark4 {
-  background-color: #494e55 !important;
+.btn-card {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 4px;
 }
 
-.date {
-  font-size: 14px;
-  font-weight: 400;
-  opacity: 0.75
+.btn-card:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 </style>
