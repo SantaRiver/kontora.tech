@@ -1,45 +1,21 @@
 <template>
-  <div class="bg-secondary">
-    <div class="container py-3">
-      <div class="row pt-1 align-items-center">
-        <div
-          class="col-xl-6 col-bg-6 col-md-6 col-sm-12 pbelow"
-          style="color: white;"
-        >
-          <span>© 2020 Copyright: Hrishikesh Paul</span>
-        </div>
-
-        <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12">
-          <div class="text-center">
-            <button
-              class="btn btn-outline-secondary mx-2 "
-              @click="open('linkedin')"
-            >
-              <i class="fab fa-linkedin"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('github')"
-            >
-              <i class="fab fa-github"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('angellist')"
-            >
-              <i class="fab fa-angellist"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
-              @click="open('resume')"
-            >
-              <i class="fa fa-file"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+  <footer class="site-footer">
+    <span>© 2024 Kontora</span>
+    <div class="footer-links">
+      <a :href="linkedin" target="_blank" v-tooltip.top="'LinkedIn'">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a :href="github" target="_blank" v-tooltip.top="'GitHub'">
+        <i class="fab fa-github"></i>
+      </a>
+      <a :href="angellist" target="_blank" v-tooltip.top="'AngelList'">
+        <i class="fab fa-angellist"></i>
+      </a>
+      <a :href="resume" target="_blank" v-tooltip.top="'Resume'">
+        <i class="fa fa-file"></i>
+      </a>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -55,53 +31,32 @@ export default {
       resume: info.links.resume,
     };
   },
-  methods: {
-    open(link) {
-      switch (link) {
-        case "linkedin":
-          window.open(this.linkedin, "_blank");
-          break;
-        case "github":
-          window.open(this.github, "_blank");
-          break;
-        case "angellist":
-          window.open(this.angellist, "_blank");
-          break;
-        case "resume":
-          window.open(this.resume, "_blank");
-          break;
-      }
-    },
-  },
 };
 </script>
 
 <style scoped>
-span {
-  font-weight: 500;
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 13px;
+  background: var(--bg-primary);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.btn {
-  border-color: white;
-  color: white;
+.footer-links a {
+  color: var(--text-secondary);
+  transition: var(--transition);
+  margin-left: 16px;
+  font-size: 18px;
+  text-decoration: none;
 }
 
-.btn:hover {
-  background-color: white;
-  border-color: white;
-  color: gray;
-}
-
-.btn:focus {
-  background-color: white;
-  border-color: white;
-  color: gray;
-}
-
-@media screen and (max-width: 580px) {
-  .pbelow {
-    padding-bottom: 20px;
-    text-align: center;
-  }
+.footer-links a:hover {
+  color: var(--accent);
 }
 </style>

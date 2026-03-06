@@ -1,12 +1,5 @@
 <template>
-  <div
-    class="py-4 p-st"
-    :class="{
-      'bg-light': !nightMode,
-      'bg-dark2': nightMode,
-      'text-light': nightMode,
-    }"
-  >
+  <div class="contact-section py-5">
     <div class="container">
       <div
         class="text-center"
@@ -14,20 +7,22 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <span
-          class="title text-center"
-          :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >contact.</span
-        >
+        <div class="section-title">contact.</div>
       </div>
-      <hr
-        width="50%"
-        :class="{ pgray: !nightMode, 'bg-secondary': nightMode }"
-      />
+
+      <div class="contact-direct" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">
+        <a :href="links.linkedin" class="contact-link" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a :href="links.github" class="contact-link" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+
       <br />
-      <div class="text-center">
+      <div class="contact-form-wrap">
         <div
-          class="mb-3"
+          class="form-group-custom"
           data-aos="fade-up"
           data-aos-once="true"
           data-aos-duration="1000"
@@ -37,18 +32,13 @@
             name="user_name"
             v-model="name"
             placeholder="name"
-            class="pinput"
-            :class="{
-              pgray: !nightMode,
-              'pgray-dark': nightMode,
-              'text-light': nightMode,
-            }"
+            class="form-control-custom"
             style="transition-delay: 0.2s"
           />
         </div>
 
         <div
-          class="my-3"
+          class="form-group-custom"
           data-aos="fade-up"
           data-aos-once="true"
           data-aos-duration="1000"
@@ -58,18 +48,13 @@
             name="user_email"
             v-model="email"
             placeholder="email"
-            class="pinput"
-            :class="{
-              pgray: !nightMode,
-              'pgray-dark': nightMode,
-              'text-light': nightMode,
-            }"
+            class="form-control-custom"
             style="transition-delay: 0.4s"
           />
         </div>
 
         <div
-          class="my-3"
+          class="form-group-custom"
           data-aos="fade-up"
           data-aos-once="true"
           data-aos-duration="1000"
@@ -78,20 +63,15 @@
             name="message"
             v-model="text"
             placeholder="message"
-            class="pinput"
+            class="form-control-custom"
             rows="4"
-            :class="{
-              pgray: !nightMode,
-              'pgray-dark': nightMode,
-              'text-light': nightMode,
-            }"
             style="transition-delay: 0.6s"
           ></textarea>
         </div>
 
         <button
           @click.prevent="sendEmail"
-          class="mt-1 btn mb-3"
+          class="btn-submit"
           data-aos="fade"
           data-aos-once="true"
           data-aos-duration="1000"
@@ -116,6 +96,7 @@ import config from "../../config";
 import emailjs from "emailjs-com";
 
 import Snackbar from "./helpers/Snackbar";
+import info from "../../info";
 
 export default {
   name: "Contact",
@@ -135,6 +116,7 @@ export default {
       showSnackbar: false,
       snackbarMessage: "",
       snackbarColor: "",
+      links: info.links,
     };
   },
   methods: {
@@ -149,7 +131,7 @@ export default {
       if (!this.email || !this.name || !this.text) {
         this.showSnackbar = true;
         this.snackbarMessage = "Please all the fields";
-        this.snackbarColor = "rgb(212, 149, 97)";
+        this.snackbarColor = "var(--accent)";
       } else {
         var obj = {
           user_email: this.email,
@@ -178,7 +160,7 @@ export default {
             (error) => {
               this.showSnackbar = true;
               this.snackbarMessage = "Oops! Something went wrong.";
-              this.snackbarColor = "rgb(212, 149, 97)";
+              this.snackbarColor = "var(--accent)";
             }
           );
       }
@@ -188,67 +170,85 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  font-size: 30px;
+.contact-section {
+  background: var(--bg-primary);
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
+
+.contact-direct {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.contact-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 15px;
   font-weight: 500;
-}
-.title1 {
-  font-size: 24px;
-  font-weight: 400;
-}
-
-.title2 {
-  font-size: 20px;
-  font-weight: 400;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.title3 {
-  font-size: 16px;
-  font-weight: 400;
+.contact-link:hover {
+  color: var(--accent);
+  text-decoration: none;
 }
 
-.pinput {
-  font-size: 18px;
+.contact-form-wrap {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.form-group-custom {
+  margin-bottom: 16px;
+}
+
+.form-control-custom {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  padding: 14px 18px;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  transition: var(--transition);
   outline: none;
+  resize: vertical;
+}
+
+.form-control-custom:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.15);
+}
+
+.form-control-custom::placeholder {
+  color: var(--text-secondary);
+}
+
+.btn-submit {
+  width: 100%;
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+  padding: 14px 36px;
   border: none;
-  border-radius: 7px;
-  padding: 10px;
-  width: 50%;
-  transition: all 1s;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 8px;
 }
 
-.btn {
-  border-color: #669db3ff;
-  color: #669db3ff;
-  width: 50%;
-}
-
-.btn:hover {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
-
-.btn:focus {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
-
-.pgray-dark {
-  background-color: #3c4148 !important;
-}
-
-@media screen and (max-width: 1000px) {
-  .pinput {
-    width: 90%;
-  }
-  .pinput {
-    width: 90%;
-  }
-
-  .btn {
-    width: 90%;
-  }
+.btn-submit:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
 }
 </style>
