@@ -55,7 +55,7 @@ let info = {
     {
       name: "Хасан",
       role: "Frontend-разработчик",
-      photo: require("./src/assets/team/khasan.png"),
+      photo: require("./src/assets/team/khasan.jpg"),
       experience: "4 года опыта",
       education: "ОГУ — Информационные системы и технологии",
       stack: ["Vue.js", "PHP", "Laravel", "Python", "MySQL", "RabbitMQ"]
