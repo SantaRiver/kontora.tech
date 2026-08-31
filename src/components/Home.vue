@@ -41,10 +41,9 @@ export default {
   data() {
     return {
       description_short: info.description_short,
-      linkedin: info.links.linkedin,
+      telegram: info.links.telegram,
       github: info.links.github,
-      angellist: info.links.angellist,
-      resume: info.links.resume,
+      email: info.links.email,
     };
   },
 };

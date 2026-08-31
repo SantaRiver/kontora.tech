@@ -11,11 +11,14 @@
       </div>
 
       <div class="contact-direct" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">
-        <a :href="links.linkedin" class="contact-link" target="_blank">
-          <i class="fab fa-linkedin"></i> LinkedIn
+        <a :href="links.telegram" class="contact-link" target="_blank">
+          <i class="fab fa-telegram"></i> Telegram
         </a>
-        <a :href="links.github" class="contact-link" target="_blank">
-          <i class="fab fa-github"></i> GitHub
+        <a :href="links.email" class="contact-link">
+          <i class="fa fa-envelope"></i> santariver@yandex.ru
+        </a>
+        <a :href="links.phone" class="contact-link">
+          <i class="fa fa-phone"></i> +7 917 045-23-01
         </a>
       </div>
 
@@ -137,7 +140,7 @@ export default {
           user_email: this.email,
           from_name: this.name,
           message_html: this.text,
-          to_name: "Hrishikesh Paul",
+          to_name: "Kontora",
         };
 
         emailjs

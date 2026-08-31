@@ -13,29 +13,38 @@ let info = {
   description_short:
     "Разрабатываем веб-приложения и лендинги под ключ. Берёмся за нестандартные задачи — решаем быстро.",
   links: {
-    linkedin: "",
+    telegram: "https://t.me/santariver",
     github: "https://github.com/SantaRiver",
-    angellist: "",
-    resume: ""
+    email: "mailto:santariver@yandex.ru",
+    phone: "tel:+79170452301"
   },
   education: [
     {
-      name: "Kontora",
-      place: "Россия",
-      date: "2019 — настоящее время",
-      degree: "Веб-студия полного цикла",
+      name: "Паша",
+      place: "Контора",
+      date: "с 2019",
+      degree: "Фронтенд-разработчик · Основатель",
       description:
-        "Основана в 2019 году. Специализируемся на разработке корпоративных сайтов, лендингов и веб-приложений. Работаем с малым и средним бизнесом.",
-      skills: ["Vue.js", "React", "Node.js", "PHP", "Laravel"]
+        "Собрал команду и основал студию в 2019 году. Занимается фронтендом, архитектурой проектов и общением с клиентами.",
+      skills: ["Vue.js", "React", "TypeScript", "Figma", "Vite"]
     },
     {
-      name: "Проектирование и дизайн",
-      place: "Figma / Adobe XD",
-      date: "с 2019",
-      degree: "UI/UX и прототипирование",
+      name: "Миша",
+      place: "Контора",
+      date: "с 2020",
+      degree: "Бэкенд-разработчик",
       description:
-        "Проектируем интерфейсы перед разработкой: wireframes, прототипы, дизайн-система. Согласовываем с клиентом до старта кодинга.",
-      skills: ["Figma", "Adobe XD", "Wireframing", "UI/UX"]
+        "Отвечает за серверную часть: API, базы данных, интеграции и деплой. Любит чистую архитектуру и автоматизацию.",
+      skills: ["Node.js", "PHP", "Laravel", "MySQL", "Docker", "Linux"]
+    },
+    {
+      name: "Хасан",
+      place: "Контора",
+      date: "с 2021",
+      degree: "UI/UX Дизайнер",
+      description:
+        "Проектирует интерфейсы от вайрфрейма до финального дизайна. Следит за тем, чтобы сайт не просто работал, но и выглядел.",
+      skills: ["Figma", "Adobe XD", "UI/UX", "Wireframing", "Брендинг"]
     }
   ],
   experience: [
@@ -122,49 +131,56 @@ let info = {
   ],
   portfolio: [
     {
-      name: "Корпоративный портал",
+      name: "Степная история",
       pictures: [
-        { img: require("./src/assets/portfolio/nc/one.png") },
-        { img: require("./src/assets/portfolio/nc/two.png") },
-        { img: require("./src/assets/portfolio/nc/three.png") }
+        { img: require("./src/assets/portfolio/fest/one.png") }
       ],
-      technologies: ["Vue.js", "Laravel", "MySQL", "REST API", "Nginx"],
-      category: "Веб-приложение",
-      date: "2023",
+      technologies: ["Vue.js", "GSAP", "Node.js", "Nginx"],
+      category: "Лендинг · Ивент",
+      date: "2024",
       github: "",
-      visit: "",
+      visit: "https://fest.stepiveter.ru/",
       description:
-        "Корпоративный портал с личным кабинетом для сотрудников, системой документооборота и аналитическим дашбордом. Реализована ролевая модель доступа, интеграция с 1С и экспорт отчётов в Excel."
+        "Лендинг ежегодного фестиваля еды и напитков «Степная история» в Оренбурге. Продажа билетов онлайн, программа мероприятий, интерактивные анимации. Сайт обслуживает тысячи посетителей в день продаж."
     },
     {
-      name: "Интернет-магазин",
+      name: "Entomosphera",
       pictures: [
-        { img: require("./src/assets/portfolio/noq/one.png") },
-        { img: require("./src/assets/portfolio/noq/two.png") },
-        { img: require("./src/assets/portfolio/noq/three.png") }
+        { img: require("./src/assets/portfolio/entomo/one.png") }
       ],
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Docker"],
-      category: "E-commerce",
-      date: "2022",
-      github: "",
-      visit: "",
-      description:
-        "Интернет-магазин с каталогом товаров, фильтрацией, корзиной и онлайн-оплатой. Подключены: Stripe, ЮKassa, автоматические уведомления покупателям. Скорость загрузки — 90+ по PageSpeed."
-    },
-    {
-      name: "Лендинг для застройщика",
-      pictures: [
-        { img: require("./src/assets/portfolio/smit/one.png") },
-        { img: require("./src/assets/portfolio/smit/two.png") },
-        { img: require("./src/assets/portfolio/smit/three.png") }
-      ],
-      technologies: ["Vue.js", "GSAP", "PHP", "MySQL", "Nginx"],
-      category: "Лендинг",
+      technologies: ["PHP", "MySQL", "JavaScript", "CSS3"],
+      category: "Интернет-магазин",
       date: "2023",
       github: "",
-      visit: "",
+      visit: "https://entomosphera.com/",
       description:
-        "Продающий лендинг жилого комплекса с анимациями, интерактивным выбором квартир на плане этажа и встроенной формой заявки. Интегрирован с AmoCRM. Конверсия выросла на 34% по сравнению с предыдущим сайтом."
+        "Интернет-магазин для коллекционеров насекомых и жуков. Каталог с фильтрацией, карточки товаров с подробными характеристиками, корзина и оформление заказа. Работает на международную аудиторию."
+    },
+    {
+      name: "Мерч Степь и Ветер",
+      pictures: [
+        { img: require("./src/assets/portfolio/merch/one.png") }
+      ],
+      technologies: ["Vue.js", "Node.js", "MySQL", "SDEK API"],
+      category: "Интернет-магазин",
+      date: "2024",
+      github: "",
+      visit: "https://merch.stepiveter.ru/catalog",
+      description:
+        "Магазин мерча для медоварни «Степь и Ветер». Каталог товаров с доставкой СДЭК по всему миру. Интеграция с логистической системой для расчёта стоимости и оформления отправлений."
+    },
+    {
+      name: "Тапрум",
+      pictures: [
+        { img: require("./src/assets/portfolio/taprum/one.png") }
+      ],
+      technologies: ["Vue.js", "PHP", "MySQL", "Nginx"],
+      category: "Лендинг · Каталог",
+      date: "2023",
+      github: "",
+      visit: "https://xn--80ayiehj.xn--p1ai/",
+      description:
+        "Сайт крафтовой медоварни «Тапрум»: витрина заведения, каталог мерча (футболки, браслеты, бокалы), информация о мероприятиях и бронирование мест."
     }
   ],
   portfolio_design: [],
@@ -172,25 +188,25 @@ let info = {
     {
       title:
         "Команда сделала сайт быстро и качественно. Всё как договаривались — без лишних вопросов и задержек. Уже рекомендовали коллегам.",
-      author: "Алексей Миронов",
+      author: "Алексей М.",
       position: "Директор",
-      company: "СтройГрупп",
+      company: "",
       location: "Москва"
     },
     {
       title:
         "Разработали для нас интернет-магазин с нуля. Сроки соблюли, дизайн понравился с первого раза. После запуска сопровождают без вопросов.",
-      author: "Марина Соколова",
+      author: "Марина С.",
       position: "Владелец",
-      company: "HomeStyle",
+      company: "",
       location: "Санкт-Петербург"
     },
     {
       title:
         "Обращались с задачей доработки старого сайта — взялись, разобрались в чужом коде и сделали всё чисто. Теперь работаем на постоянной основе.",
-      author: "Денис Ковалёв",
+      author: "Денис К.",
       position: "CTO",
-      company: "Логиком",
+      company: "",
       location: "Екатеринбург"
     }
   ]
