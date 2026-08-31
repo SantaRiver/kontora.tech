@@ -23,7 +23,47 @@
 npm run serve   # dev-сервер с hot-reload
 npm run build   # production-сборка в dist/
 npm run lint    # линтинг
+npm run deploy  # пуш + деплой на прод (см. "Деплой" ниже)
 ```
+
+## Деплой
+
+Прод: `root@155.212.170.201`, домен kontora.tech. Сервер обслуживает nginx
+(`/etc/nginx/sites-available/kontora.tech`) — root указывает на
+`/var/www/kontora.tech/dist`. `/var/www/kontora.tech` на сервере — это тот же
+git-репозиторий (origin `github.com/SantaRiver/kontora.tech`), собранный на месте.
+
+**Деплой одной командой:** `npm run deploy` (обёртка над `scripts/deploy.sh`).
+Скрипт:
+1. Требует чистое дерево (`git status --porcelain` пуст) — коммить перед деплоем.
+2. Пушит текущую локальную ветку в `origin/master`.
+3. По SSH на сервере: `git fetch` + `git reset --hard origin/master` — **любые
+   несохранённые правки прямо на сервере будут затёрты**, там нельзя ничего
+   редактировать руками.
+4. `npm ci` — но только если `package-lock.json` изменился с прошлого деплоя
+   (хэш кешируется в `.deploy_lock_hash` на сервере, туда же не коммитить).
+5. `npm run build`, `nginx -t && systemctl reload nginx`.
+6. Проверяет `curl https://kontora.tech/` на `HTTP 200`, иначе падает с ошибкой.
+
+**Особенности рантайма сервера** (Node 20, npm 10), из-за которых деплой
+раньше падал вручную — теперь зашиты в репозиторий, трогать не нужно:
+- `NODE_OPTIONS=--openssl-legacy-provider` в `serve`/`build` в `package.json` —
+  webpack 4 (Vue CLI 4) хеширует MD4, который OpenSSL 3 не поддерживает
+  (`error:0308010C:digital envelope routines::unsupported`).
+- `.npmrc` → `legacy-peer-deps=true` — `vue-selector@0.0.1` требует
+  `peer vue@^1.0.26`, конфликтует с реальным `vue@2.6.11`; без флага и
+  `npm ci`, и `npm install` падают с `ERESOLVE`.
+- `package-lock.json` должен быть в синхроне с `package.json` (регенерировать
+  `npm install` локально при добавлении/апдейте зависимостей) — иначе
+  `npm ci` на сервере падает с `EUSAGE`.
+
+**PNG в портфолио**: скриншоты `src/assets/portfolio/<project>/*.png` перед
+коммитом стоит гонять через `pngquant --quality=65-85 --strip` +
+`optipng -o2 -strip all` — экономит ~70-80% без заметной потери качества.
+Оптимизировать нужно только реально используемые в `info.js` файлы (проверить
+`require()` в `info.js`), в репозитории есть неиспользуемые ассеты старого
+шаблона (`clumpr`, `msr`, `post`, `suicide`, `designs/*`), которые в билд не
+попадают и трогать их не обязательно.
 
 ## Структура файлов
 
