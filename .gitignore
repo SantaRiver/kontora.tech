@@ -8,6 +8,9 @@ firebase.json
 
 config.js
 
+# resumes / personal docs used as content source, not for publishing
+/temp
+
 # local env files
 .env.local
 .env.*.local

@@ -18,10 +18,13 @@
       </div>
 
       <div class="row">
-        <div class="col-xl-6 col-md-6 col-sm-12">
+        <div class="col-xl-6 col-md-6 col-sm-12" v-if="education.data.length">
           <Timeline :data="education" :nightMode="nightMode" />
         </div>
-        <div class="col-xl-6 col-md-6 col-sm-12">
+        <div
+          class="col-sm-12"
+          :class="education.data.length ? 'col-xl-6 col-md-6' : 'col-xl-12'"
+        >
           <Timeline :data="experience" :nightMode="nightMode" />
         </div>
       </div>

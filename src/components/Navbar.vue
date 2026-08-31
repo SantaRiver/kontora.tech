@@ -34,6 +34,14 @@
             <li class="nav-item mx-2">
               <a
                 class="nav-link-custom"
+                href="/team"
+                @click.prevent="$emit('scroll', 'team')"
+                >команда</a
+              >
+            </li>
+            <li class="nav-item mx-2">
+              <a
+                class="nav-link-custom"
                 href="/skills"
                 @click.prevent="$emit('scroll', 'skills')"
                 >skills</a

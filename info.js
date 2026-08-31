@@ -18,33 +18,31 @@ let info = {
     email: "mailto:santariver@yandex.ru",
     phone: "tel:+79170452301"
   },
-  education: [
+  education: [],
+  team: [
     {
       name: "Паша",
-      place: "Контора",
-      date: "с 2019",
-      degree: "Фронтенд-разработчик · Основатель",
-      description:
-        "Собрал команду и основал студию в 2019 году. Занимается фронтендом, архитектурой проектов и общением с клиентами.",
-      skills: ["Vue.js", "React", "TypeScript", "Figma", "Vite"]
-    },
-    {
-      name: "Миша",
-      place: "Контора",
-      date: "с 2020",
-      degree: "Бэкенд-разработчик",
-      description:
-        "Отвечает за серверную часть: API, базы данных, интеграции и деплой. Любит чистую архитектуру и автоматизацию.",
-      skills: ["Node.js", "PHP", "Laravel", "MySQL", "Docker", "Linux"]
+      role: "Тимлид · Backend-разработчик",
+      photo: require("./src/assets/team/pasha.png"),
+      experience: "7 лет опыта",
+      education: "ОГУ — Математика и компьютерные науки",
+      stack: ["Vue.js", "PHP", "Laravel", "Python", "MySQL", "RabbitMQ"]
     },
     {
       name: "Хасан",
-      place: "Контора",
-      date: "с 2021",
-      degree: "UI/UX Дизайнер",
-      description:
-        "Проектирует интерфейсы от вайрфрейма до финального дизайна. Следит за тем, чтобы сайт не просто работал, но и выглядел.",
-      skills: ["Figma", "Adobe XD", "UI/UX", "Wireframing", "Брендинг"]
+      role: "Frontend-разработчик",
+      photo: require("./src/assets/team/khasan.png"),
+      experience: "4 года опыта",
+      education: "ОГУ — Информационные системы и технологии",
+      stack: ["Vue.js", "PHP", "Laravel", "Python", "MySQL", "RabbitMQ"]
+    },
+    {
+      name: "Миша",
+      role: "Backend-разработчик",
+      photo: require("./src/assets/team/misha.png"),
+      experience: "6 лет опыта",
+      education: "ОГУ — ИТ-направление",
+      stack: ["Vue.js", "PHP", "Laravel", "Python", "MySQL", "RabbitMQ"]
     }
   ],
   experience: [
