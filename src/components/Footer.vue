@@ -1,6 +1,6 @@
 <template>
   <footer class="site-footer">
-    <span>© 2025 Kontora</span>
+    <span>© {{ year }} Kontora</span>
     <div class="footer-links">
       <a :href="telegram" target="_blank" v-tooltip.top="'Telegram'">
         <i class="fab fa-telegram"></i>
@@ -25,6 +25,7 @@ export default {
       telegram: info.links.telegram,
       github: info.links.github,
       email: info.links.email,
+      year: new Date().getFullYear(),
     };
   },
 };

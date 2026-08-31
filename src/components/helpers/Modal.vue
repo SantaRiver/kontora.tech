@@ -2,20 +2,12 @@
   <div>
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div
-          class="modal-container"
-          :class="{
-            'bg-light': !nightMode,
-            'bg-dark': nightMode,
-            'text-light': nightMode,
-          }"
-        >
+        <div class="modal-container">
           <div class="title1 px-4 pt-3">
             <span
               ><a
                 href="#"
                 @click.prevent="open(portfolio.visit)"
-                :class="{ 'text-light': nightMode }"
                 >{{ portfolio.name }}</a
               ></span
             >
@@ -25,24 +17,17 @@
               @click="$emit('close')"
               ><i class="fas fa-times"></i
             ></a>
-            <hr
-              class="my-1"
-              :class="{ pgray: !nightMode, 'bg-secondary': nightMode }"
-            />
+            <hr class="my-1" />
           </div>
           <div class="modal-body my-0 pb-0 px-4 pt-0">
-            <div
-              class="mb-2 date"
-              :class="{ 'text-light': nightMode, pbgray: nightMode }"
-            >
+            <div class="mb-2 date">
               <span>{{ portfolio.date }} • {{ portfolio.category }}</span>
             </div>
             <div class="pb-1 bheight">
               <span
-                class="badge mr-2 mb-2"
+                class="tech-tag mr-2 mb-2"
                 v-for="tech in portfolio.technologies"
                 :key="tech"
-                :class="{ 'bg-dark4': nightMode }"
                 >{{ tech }}</span
               >
             </div>
@@ -57,14 +42,22 @@
           </div>
 
           <div class="text-center pb-3">
-            <hr
-              class="mt-1 mb-3"
-              :class="{ pgray: !nightMode, 'bg-secondary': nightMode }"
-            />
-            <button class="btn w-25 mr-3" @click="open(portfolio.github)">
+            <hr class="mt-1 mb-3" />
+            <button
+              class="btn-card mr-3"
+              v-if="portfolio.github"
+              @click="open(portfolio.github)"
+            >
               github
             </button>
-            <button class="btn w-25" @click="$emit('close')">close</button>
+            <button
+              class="btn-card"
+              v-if="portfolio.visit"
+              @click="open(portfolio.visit)"
+            >
+              открыть сайт
+            </button>
+            <button class="btn-card" @click="$emit('close')">закрыть</button>
           </div>
         </div>
       </div>
@@ -73,13 +66,11 @@
 </template>
 
 <script>
-import Carousel from "./Carousel";
 import Gallery from "./Gallery";
 
 export default {
   name: "Modal",
   components: {
-    Carousel,
     Gallery,
   },
   props: {
@@ -111,19 +102,19 @@ body.modal-open {
 
 a {
   text-decoration: none;
-  color: black;
-  transition: all 0.2s;
+  color: var(--text-primary);
+  transition: var(--transition);
   cursor: pointer;
 }
 
 a:hover {
-  transition: all 0.2s;
-  color: gray;
+  color: var(--accent);
 }
 
 .date {
   font-size: 14px;
   font-weight: 400;
+  color: var(--text-secondary);
 }
 .modal-mask {
   position: fixed;
@@ -150,11 +141,18 @@ a:hover {
   width: 40%;
   max-height: 70%;
   margin: 0px auto;
-  border-radius: 7px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
   flex-direction: column;
   display: flex; /*added*/
+}
+
+.modal-container hr {
+  border-color: var(--border);
 }
 
 @media screen and (max-width: 1600px) {
@@ -214,35 +212,33 @@ a:hover {
   font-weight: 400;
 }
 
-.badge {
-  background-color: rgb(211, 227, 233);
-  transition: all 0.5s;
+.tech-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn-card {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 7px 18px;
+  border-radius: 6px;
+  font-size: 13px;
   font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.badge:hover {
-  transition: all 0.5s;
-  box-shadow: 2px 2px 5px rgb(179, 179, 179);
-}
-
-.btn {
-  border-color: #669db3ff;
-  color: #669db3ff;
-}
-
-.btn:hover {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
-
-.btn:focus {
-  background-color: #669db3ff;
-  border-color: #669db3ff;
-  color: white;
-}
-
-.bg-dark4 {
-  background-color: #494e55 !important;
+.btn-card:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 </style>

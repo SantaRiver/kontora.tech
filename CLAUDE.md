@@ -2,18 +2,17 @@
 
 ## Обзор проекта
 
-Персональный сайт-портфолио на Vue 2. Форк шаблона [hrishikeshpaul/portfolio-template](https://github.com/hrishikeshpaul/portfolio-template). Одностраничное приложение (SPA) с секциями: Home, About, Skills, Portfolio, Recommendations, Contact.
+Персональный сайт-портфолио на Vue 2. Форк шаблона [hrishikeshpaul/portfolio-template](https://github.com/hrishikeshpaul/portfolio-template). Одностраничное приложение (SPA) с секциями: Home, About, Team, Skills, Portfolio, Recommendations, Contact.
 
 ## Технологический стек
 
 - **Vue 2** (2.6.11) — фреймворк
 - **Vue CLI** (~4.3) — сборка и dev-сервер
-- **Vue Router 3** — история браузера, маршруты секций (`/about`, `/skills`, `/portfolio`, `/contact`)
+- **Vue Router 3** — история браузера, маршруты секций (`/about`, `/team`, `/skills`, `/portfolio`, `/contact`)
 - **AOS** — анимации при скролле
 - **vue-parallax-js** — параллакс-эффект
 - **vue-scrollto** — плавная прокрутка
 - **v-tooltip** — тултипы
-- **vue-cookie** — хранение настройки night mode
 - **emailjs-com** — отправка писем из формы Contact без бэкенда
 - **ESLint** — `plugin:vue/essential` + `eslint:recommended`, парсер `babel-eslint`
 
@@ -72,26 +71,27 @@ info.js                         # ВСЕ персональные данные �
 config.js                       # Ключи emailjs (в .gitignore, не коммитить!)
 public/index.html               # HTML-шаблон
 src/main.js                     # Точка входа, регистрация плагинов, роутер
-src/App.vue                     # Корневой компонент, night mode, скролл-навигация
+src/App.vue                     # Корневой компонент, скролл-навигация
 src/components/
-  Navbar.vue                    # Навбар с переключателем night mode
+  Navbar.vue                    # Навбар
   Home.vue                      # Главный экран (имя, аватар, ссылки)
-  About.vue                     # Образование и опыт (использует Timeline.vue)
+  About.vue                     # Вехи студии + услуги (использует Timeline.vue)
+  Team.vue                      # Команда — карточки с фото, ролью, стеком
   Skills.vue                    # Навыки, сгруппированные по категориям
   Portfolio.vue                 # Портфолио-проекты (Card.vue, Modal.vue, Gallery.vue)
-  Recommendation.vue            # Рекомендации
+  Recommendation.vue            # Отзывы
   Contact.vue                   # Форма обратной связи через emailjs
   Footer.vue                    # Подвал
   helpers/
-    Timeline.vue                # Компонент временной шкалы (образование/опыт)
+    Timeline.vue                # Компонент временной шкалы (вехи/услуги)
     Card.vue                    # Карточка проекта
     Modal.vue                   # Модальное окно с деталями проекта
     Gallery.vue                 # Галерея скриншотов
-    Carousel.vue                # Карусель изображений
-    DesignModal.vue             # Модалка для дизайн-проектов
     Logo.vue                    # Логотип
     Snackbar.vue                # Уведомление (используется в Contact)
     Wave.vue                    # SVG-волна (декоративный разделитель)
+    Carousel.vue                # мёртвый код — осиротел, когда убрали
+    DesignModal.vue             # вкладку "design" из Portfolio; не импортируются
 src/assets/
   potrait.jpg / potrait.svg     # Фото/аватар
   logo.png                      # Логотип
@@ -106,18 +106,18 @@ src/assets/
 
 | Ключ | Содержимое |
 |---|---|
-| `name`, `logo_name` | Имя и сокращение для логотипа |
+| `name`, `logo_name` | Имя и полное название для логотипа (`logo_name` рендерится как есть — не сокращать) |
 | `flat_picture` | Путь к портрету |
-| `config.use_cookies` | Сохранять ли night mode в cookie |
 | `config.navbar.blur` | Размытие фона навбара |
 | `description` | Текст-представление (поддерживает `<br>`) |
-| `links` | LinkedIn, GitHub, AngelList, Resume |
-| `education[]` | Образование (name, place, date, degree, gpa, description, skills) |
-| `experience[]` | Опыт (name, place, date, position, description, skills) |
+| `links` | telegram, github, email (`mailto:...`), phone (`tel:...`) |
+| `milestones[]` | Вехи студии — левая колонка About (name, date, description). Рендерится через `Timeline.vue`, `place`/`degree` необязательны |
+| `experience[]` | Услуги — правая колонка About (name, place, date, position, description, skills) |
+| `team[]` | Команда: name, role, photo (require), experience (строка "N лет опыта"), education (строка), stack[] |
 | `skills[]` | Навыки по группам (title, info[], icon) |
 | `portfolio[]` | Проекты (name, pictures[], technologies[], category, date, github, visit, description) |
-| `portfolio_design[]` | Дизайн-проекты (аналогичная структура) |
-| `recommendations[]` | Рекомендации (title, author, position, company, location) |
+| `portfolio_design[]` | Не используется в UI (вкладку "design" убрали из Portfolio.vue, т.к. дублировала "development") — оставлен в схеме про запас |
+| `recommendations[]` | Отзывы (title, author, position, company, location) — сейчас заглушки, реальных отзывов ещё нет |
 
 Картинки для проектов кладутся в `src/assets/portfolio/<project>/` и подключаются через `require()` в `info.js`.
 
@@ -136,9 +136,18 @@ let config = {
 export default config;
 ```
 
-## Night Mode
+## Night Mode — убран
 
-Управляется через `App.vue`. Состояние `nightMode` (boolean) передаётся пропом во все дочерние компоненты. Сохраняется в cookie `nightMode` если `info.config.use_cookies = true`. Классы: `text-dark` (светлая тема) / `text-light` (тёмная тема).
+Переключатель тёмной/светлой темы был декоративным пережитком старого шаблона:
+после редизайна сайт стал полностью тёмным (CSS-переменные в `App.vue` не
+имеют светлого варианта), поэтому переключение `nightMode` ничего не красило.
+Кнопку и связанную логику (`switchMode`, cookie, `vue-cookie` плагин) убрали.
+`nightMode` остался статическим `false`-пропом, который прокидывается вниз по
+дереву компонентов (не стали вычищать из каждого компонента — не было смысла),
+но реально на что-то влияет только внутри `Modal.vue`, если туда вернуть
+условные классы — сейчас там всё захардкожено под тёмную тему через CSS-
+переменные. Если понадобится светлая тема — это отдельная задача дизайна, а
+не возврат старого переключателя.
 
 ## Стилевые соглашения
 

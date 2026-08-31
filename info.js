@@ -1,9 +1,8 @@
 let info = {
   name: "Kontora",
-  logo_name: "ktora",
+  logo_name: "Kontora",
   flat_picture: require("./src/assets/potrait.jpg"),
   config: {
-    use_cookies: true,
     navbar: {
       blur: false
     }
@@ -18,7 +17,32 @@ let info = {
     email: "mailto:santariver@yandex.ru",
     phone: "tel:+79170452301"
   },
-  education: [],
+  milestones: [
+    {
+      name: "Старт студии",
+      date: "2019",
+      description:
+        "Паша начал брать первые заказы на фрилансе — так появилась Kontora."
+    },
+    {
+      name: "Расширение команды",
+      date: "2020",
+      description:
+        "К студии подключился Миша, взял на себя бэкенд-разработку."
+    },
+    {
+      name: "Команда в сборе",
+      date: "2021",
+      description:
+        "Пришёл Хасан — фронтенд-разработчик. Сформировался нынешний состав команды из трёх человек."
+    },
+    {
+      name: "Крупные проекты",
+      date: "2023 — 2024",
+      description:
+        "Запустили Entomosphera, Тапрум, фестиваль «Степная история» и мерч «Степь и Ветер»."
+    }
+  ],
   team: [
     {
       name: "Паша",

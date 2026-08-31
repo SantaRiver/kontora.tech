@@ -7,7 +7,7 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <div class="section-title">recommendations.</div>
+        <div class="section-title">отзывы.</div>
       </div>
       <div class="row">
         <div

@@ -7,7 +7,7 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <div class="section-title">contact.</div>
+        <div class="section-title">контакты.</div>
       </div>
 
       <div class="contact-direct" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">
@@ -34,7 +34,7 @@
             type="text"
             name="user_name"
             v-model="name"
-            placeholder="name"
+            placeholder="имя"
             class="form-control-custom"
             style="transition-delay: 0.2s"
           />
@@ -50,7 +50,7 @@
             type="email"
             name="user_email"
             v-model="email"
-            placeholder="email"
+            placeholder="почта"
             class="form-control-custom"
             style="transition-delay: 0.4s"
           />
@@ -65,7 +65,7 @@
           <textarea
             name="message"
             v-model="text"
-            placeholder="message"
+            placeholder="сообщение"
             class="form-control-custom"
             rows="4"
             style="transition-delay: 0.6s"
@@ -80,7 +80,7 @@
           data-aos-duration="1000"
           data-aos-offset="50"
         >
-          Send
+          Отправить
         </button>
       </div>
 
@@ -133,7 +133,7 @@ export default {
     sendEmail() {
       if (!this.email || !this.name || !this.text) {
         this.showSnackbar = true;
-        this.snackbarMessage = "Please all the fields";
+        this.snackbarMessage = "Заполните все поля";
         this.snackbarColor = "var(--accent)";
       } else {
         var obj = {
@@ -153,7 +153,7 @@ export default {
           .then(
             (result) => {
               this.showSnackbar = true;
-              this.snackbarMessage = "Thanks! Message recieved.";
+              this.snackbarMessage = "Спасибо! Сообщение получено.";
               this.snackbarColor = "#1aa260";
 
               this.email = "";
@@ -162,7 +162,7 @@ export default {
             },
             (error) => {
               this.showSnackbar = true;
-              this.snackbarMessage = "Oops! Something went wrong.";
+              this.snackbarMessage = "Упс! Что-то пошло не так.";
               this.snackbarColor = "var(--accent)";
             }
           );

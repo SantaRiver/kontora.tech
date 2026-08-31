@@ -20,9 +20,9 @@
       <div class="hero-stats">
         <span>5+ лет опыта</span>
         <span class="sep">·</span>
-        <span>47 проектов</span>
+        <span>{{ projectsCount }} {{ projectsLabel }}</span>
         <span class="sep">·</span>
-        <span>Full Stack</span>
+        <span>Полный цикл</span>
       </div>
     </div>
   </div>
@@ -30,6 +30,7 @@
 
 <script>
 import info from "../../info";
+import { pluralize } from "../utils/pluralize";
 
 export default {
   name: "Home",
@@ -44,7 +45,13 @@ export default {
       telegram: info.links.telegram,
       github: info.links.github,
       email: info.links.email,
+      projectsCount: info.portfolio.length,
     };
+  },
+  computed: {
+    projectsLabel() {
+      return pluralize(this.projectsCount, ["проект", "проекта", "проектов"]);
+    },
   },
 };
 </script>

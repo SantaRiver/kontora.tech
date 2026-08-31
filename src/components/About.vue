@@ -7,7 +7,7 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <div class="section-title">about me.</div>
+        <div class="section-title">о нас.</div>
       </div>
 
       <div class="stats-row" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">
@@ -35,6 +35,7 @@
 <script>
 import Timeline from "./helpers/Timeline";
 import info from "../../info";
+import { pluralize } from "../utils/pluralize";
 
 export default {
   name: "About",
@@ -49,16 +50,19 @@ export default {
   data() {
     return {
       education: {
-        title: "education",
-        data: info.education,
+        title: "вехи",
+        data: info.milestones,
       },
       experience: {
-        title: "experiences",
+        title: "услуги",
         data: info.experience,
       },
       stats: [
         { value: '5+', label: 'лет опыта' },
-        { value: '47', label: 'проектов' },
+        {
+          value: String(info.portfolio.length),
+          label: pluralize(info.portfolio.length, ['проект', 'проекта', 'проектов']),
+        },
         { value: '3', label: 'специалиста' },
         { value: '100%', label: 'в срок' },
       ],

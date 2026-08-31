@@ -27,8 +27,8 @@
           >
             <li class="m-0 pb-2">
               <div class="timeline-card">
-                <div class="timeline-name">{{ e.name }}, {{ e.place }}</div>
-                <div class="timeline-role">
+                <div class="timeline-name">{{ e.name }}{{ e.place ? ", " + e.place : "" }}</div>
+                <div class="timeline-role" v-if="e.degree || e.position">
                   {{ e.degree || e.position }}
                   {{ e.gpa ? "(" + e.gpa + ")" : "" }}
                 </div>

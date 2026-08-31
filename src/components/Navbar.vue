@@ -28,7 +28,7 @@
                 class="nav-link-custom"
                 href="/about"
                 @click.prevent="$emit('scroll', 'about')"
-                >about</a
+                >о нас</a
               >
             </li>
             <li class="nav-item mx-2">
@@ -44,7 +44,7 @@
                 class="nav-link-custom"
                 href="/skills"
                 @click.prevent="$emit('scroll', 'skills')"
-                >skills</a
+                >навыки</a
               >
             </li>
             <li class="nav-item mx-2">
@@ -52,7 +52,7 @@
                 class="nav-link-custom"
                 href="/portfolio"
                 @click.prevent="$emit('scroll', 'portfolio')"
-                >portfolio</a
+                >портфолио</a
               >
             </li>
             <li class="nav-item mx-2">
@@ -60,18 +60,8 @@
                 class="nav-link-custom"
                 href="/contact"
                 @click.prevent="$emit('scroll', 'contact')"
-                >contact</a
+                >контакты</a
               >
-            </li>
-            <li class="nav-item mx-2">
-              <a
-                class="nav-link-custom mode-btn"
-                href="#"
-                @click.prevent="switchMode"
-                v-tooltip.bottom="nightMode ? 'Light Mode' : 'Night Mode'"
-              >
-                <i :class="{ 'fas fa-moon': nightMode, 'far fa-moon': !nightMode }"></i>
-              </a>
             </li>
             <li class="nav-item ml-3">
               <a class="btn-cta-nav" href="/contact" @click.prevent="$emit('scroll', 'contact')">Обсудить проект</a>
@@ -97,17 +87,10 @@ export default {
   data() {
     return {
       navbarConfig: info.config.navbar,
-      localNightMode: this.nightMode,
     };
   },
   components: {
     Logo,
-  },
-  methods: {
-    switchMode() {
-      this.localNightMode = !this.localNightMode;
-      this.$emit("nightMode", this.localNightMode);
-    },
   },
 };
 </script>
@@ -134,10 +117,6 @@ export default {
   text-decoration: none;
 }
 
-.mode-btn {
-  font-size: 16px;
-}
-
 .navbar-toggler-custom {
   background: none;
   border: 1px solid var(--border);
@@ -151,6 +130,28 @@ export default {
 .navbar-toggler-custom:hover {
   border-color: var(--text-secondary);
   color: var(--text-primary);
+}
+
+/* Bootstrap's own .navbar-toggler is display:none at lg+; since this
+   button uses a custom class (for styling), restore that behavior
+   explicitly — otherwise it stays visible even on desktop. */
+@media (min-width: 992px) {
+  .navbar-toggler-custom {
+    display: none;
+  }
+}
+
+/* Below lg, the collapse is hidden and .navbar > .container's
+   space-between pushes the toggler to the far right, away from the
+   brand. Keep it anchored next to the logo instead. */
+@media (max-width: 991.98px) {
+  .navbar > .container {
+    justify-content: flex-start;
+  }
+
+  .navbar-toggler-custom {
+    margin-left: 16px;
+  }
 }
 
 .btn-cta-nav {

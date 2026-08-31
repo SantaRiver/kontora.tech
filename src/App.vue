@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar @scroll="scrollTo" @nightMode="switchMode" :nightMode="nightMode" />
+    <Navbar @scroll="scrollTo" :nightMode="nightMode" />
     <div class="parent">
       <Home :nightMode="nightMode" />
       <About id="about" :nightMode="nightMode" />
@@ -25,8 +25,6 @@ import Recommendation from "./components/Recommendation";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-import info from "../info";
-
 export default {
   name: "App",
   components: {
@@ -42,14 +40,11 @@ export default {
   },
   data() {
     return {
+      // Site is dark-only by design; kept as a static prop since some
+      // child components (e.g. Modal) still take it, rather than
+      // ripping the prop out of every component for no visual gain.
       nightMode: false,
-      config: info.config,
     };
-  },
-  created() {
-    if (this.config.use_cookies) {
-      this.nightMode = this.$cookie.get("nightMode") === "true" ? true : false;
-    }
   },
   mounted() {
     ["about", "team", "contact", "skills", "portfolio"].forEach((l) => {
@@ -60,12 +55,6 @@ export default {
     });
   },
   methods: {
-    switchMode(mode) {
-      if (this.config.use_cookies) {
-        this.$cookie.set("nightMode", mode);
-      }
-      this.nightMode = mode;
-    },
     scrollTo(ele) {
       if (ele == "home") {
         this.$router.push(`/`);
