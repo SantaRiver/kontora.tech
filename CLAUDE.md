@@ -92,12 +92,21 @@ src/components/
     Wave.vue                    # SVG-волна (декоративный разделитель)
     Carousel.vue                # мёртвый код — осиротел, когда убрали
     DesignModal.vue             # вкладку "design" из Portfolio; не импортируются
+    CookieConsent.vue           # баннер согласия на cookie/Метрику
+src/utils/
+  pluralize.js                  # русские склонения по числу (N проект/а/ов)
+  analytics.js                  # вся логика Яндекс.Метрики, см. "Аналитика" ниже
 src/assets/
   potrait.jpg / potrait.svg     # Фото/аватар
   logo.png                      # Логотип
   pdfs/Resume.pdf               # Резюме
   portfolio/                    # Скриншоты проектов (по папкам)
   designs/                      # Дизайн-проекты (по папкам)
+  team/                         # Фото команды
+public/
+  privacy.html                  # статичная страница про cookie/данные, вне Vue-бандла
+  og-image.png                  # картинка для шеринга (1200×630)
+  robots.txt, sitemap.xml
 ```
 
 ## Как редактировать контент
@@ -135,6 +144,44 @@ let config = {
 }
 export default config;
 ```
+
+## Аналитика (Яндекс.Метрика)
+
+Счётчик `112114909`. Вся логика — в `src/utils/analytics.js`, ничего не
+зашито статикой в `public/index.html`.
+
+**Gated by cookie-согласием.** Метрика (включая Вебвизор) не грузится вообще,
+пока посетитель не нажал «Принять» в баннере `CookieConsent.vue` (снизу
+экрана, монтируется в `App.vue`). Согласие — `localStorage`, отказ/закрытие
+крестиком — `sessionStorage` (баннер не долбит повторно в рамках сессии, но
+и не запоминается навсегда). Проверено вручную: без согласия — ноль запросов
+к `mc.yandex.ru`; после «Принять» — счётчик, вебвизор, хиты, все с 200.
+
+**`ssr:true` в `init()`** отключает автоматический хит при загрузке (то же
+самое, что официально задокументированный `defer:true`) — рассчитан на
+ручные вызовы `hit()`. Сайт — SPA с одним реальным роутом (`/about`, `/team`
+и т.п. — это pushState от скролл-навигации в `App.vue`, а не настоящие
+переходы), так что `router.afterEach()` в `main.js` — единственное место,
+которое видит их все одинаково, включая первую загрузку.
+
+**Цели (JS-события через `reachGoal`)** — код их отправляет, но конверсии в
+интерфейсе Метрики появятся только после того, как для каждого идентификатора
+вручную заведена цель: Счётчик → Цели → Добавить цель → тип
+«JavaScript-событие» → Идентификатор = как в списке:
+
+| Идентификатор | Где стреляет | Параметры |
+|---|---|---|
+| `contact_form_submit` | Contact.vue, форма успешно отправлена (emailjs `.then`) | — |
+| `contact_form_error` | Contact.vue, emailjs вернул ошибку | — |
+| `cta_discuss_project` | клик «Обсудить проект» (Home.vue hero и Navbar.vue) | `location: hero \| navbar` |
+| `cta_view_work` | клик «Смотреть работы» (Home.vue hero) | — |
+| `contact_link_click` | клик telegram/email/phone (Contact.vue), telegram/github/email (Footer.vue) | `channel`, `location: footer` (только в футере) |
+| `portfolio_visit_click` | клик «открыть сайт» / название проекта (Modal.vue) | `project` |
+| `portfolio_github_click` | клик «github» в модалке проекта (Modal.vue) | `project` |
+
+Добавлять новую цель = дописать `trackGoal("id", params)` в обработчик клика/
+события + завести такую же цель в кабинете. `trackGoal()`/`trackHit()` сами
+не падают, если Метрика ещё не загружена (нет согласия) — просто no-op.
 
 ## Night Mode — убран
 

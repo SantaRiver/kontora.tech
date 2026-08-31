@@ -64,7 +64,7 @@
               >
             </li>
             <li class="nav-item ml-3">
-              <a class="btn-cta-nav" href="/contact" @click.prevent="$emit('scroll', 'contact')">Обсудить проект</a>
+              <a class="btn-cta-nav" href="/contact" @click.prevent="onDiscussClick">Обсудить проект</a>
             </li>
           </ul>
         </div>
@@ -76,6 +76,7 @@
 <script>
 import Logo from "./helpers/Logo";
 import info from "../../info";
+import { trackGoal } from "../utils/analytics";
 
 export default {
   name: "Navbar",
@@ -91,6 +92,12 @@ export default {
   },
   components: {
     Logo,
+  },
+  methods: {
+    onDiscussClick() {
+      trackGoal("cta_discuss_project", { location: "navbar" });
+      this.$emit("scroll", "contact");
+    },
   },
 };
 </script>

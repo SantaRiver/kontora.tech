@@ -14,8 +14,8 @@
       </h1>
       <p class="hero-sub">{{ description_short }}</p>
       <div class="hero-actions">
-        <a class="btn-primary-cta" href="/portfolio" v-scroll-to="'#portfolio'">Смотреть работы</a>
-        <a class="btn-secondary-cta" href="/contact" v-scroll-to="'#contact'">Обсудить проект</a>
+        <a class="btn-primary-cta" href="/portfolio" v-scroll-to="'#portfolio'" @click="trackViewWork">Смотреть работы</a>
+        <a class="btn-secondary-cta" href="/contact" v-scroll-to="'#contact'" @click="trackDiscussProject">Обсудить проект</a>
       </div>
       <div class="hero-stats">
         <span>5+ лет опыта</span>
@@ -31,6 +31,7 @@
 <script>
 import info from "../../info";
 import { pluralize } from "../utils/pluralize";
+import { trackGoal } from "../utils/analytics";
 
 export default {
   name: "Home",
@@ -51,6 +52,14 @@ export default {
   computed: {
     projectsLabel() {
       return pluralize(this.projectsCount, ["проект", "проекта", "проектов"]);
+    },
+  },
+  methods: {
+    trackViewWork() {
+      trackGoal("cta_view_work");
+    },
+    trackDiscussProject() {
+      trackGoal("cta_discuss_project", { location: "hero" });
     },
   },
 };

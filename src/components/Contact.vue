@@ -11,13 +11,13 @@
       </div>
 
       <div class="contact-direct" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">
-        <a :href="links.telegram" class="contact-link" target="_blank">
+        <a :href="links.telegram" class="contact-link" target="_blank" @click="trackContactClick('telegram')">
           <i class="fab fa-telegram"></i> Telegram
         </a>
-        <a :href="links.email" class="contact-link">
+        <a :href="links.email" class="contact-link" @click="trackContactClick('email')">
           <i class="fa fa-envelope"></i> santariver@yandex.ru
         </a>
-        <a :href="links.phone" class="contact-link">
+        <a :href="links.phone" class="contact-link" @click="trackContactClick('phone')">
           <i class="fa fa-phone"></i> +7 917 045-23-01
         </a>
       </div>
@@ -100,6 +100,7 @@ import emailjs from "emailjs-com";
 
 import Snackbar from "./helpers/Snackbar";
 import info from "../../info";
+import { trackGoal } from "../utils/analytics";
 
 export default {
   name: "Contact",
@@ -123,6 +124,9 @@ export default {
     };
   },
   methods: {
+    trackContactClick(channel) {
+      trackGoal("contact_link_click", { channel });
+    },
     closeSnackbar(val) {
       if (!val) {
         setTimeout(() => {
@@ -152,6 +156,7 @@ export default {
           )
           .then(
             (result) => {
+              trackGoal("contact_form_submit");
               this.showSnackbar = true;
               this.snackbarMessage = "Спасибо! Сообщение получено.";
               this.snackbarColor = "#1aa260";
@@ -161,6 +166,7 @@ export default {
               this.name = "";
             },
             (error) => {
+              trackGoal("contact_form_error");
               this.showSnackbar = true;
               this.snackbarMessage = "Упс! Что-то пошло не так.";
               this.snackbarColor = "var(--accent)";

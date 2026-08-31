@@ -7,6 +7,7 @@ import VueParallaxJs from 'vue-parallax-js'
 import VueScrollTo from 'vue-scrollto'
 import VueRouter from 'vue-router'
 import VTooltip from 'v-tooltip'
+import { hasAnalyticsConsent, loadYandexMetrika, trackHit } from './utils/analytics'
 
 Vue.use(VTooltip)
 Vue.use(VueRouter)
@@ -24,16 +25,18 @@ const router = new VueRouter({
   routes // short for `routes: routes`
 })
 
-// Yandex.Metrika is installed with ssr:true (see public/index.html), which
-// disables its automatic pageview-on-load hit. This is a single-route SPA —
-// "/about", "/team" etc. are pushState paths from scroll navigation
-// (App.vue's scrollTo()), not real page loads — so router.afterEach is the
-// one place that sees every one of them, including the very first.
-const YANDEX_METRIKA_ID = 112114909
+// Returning visitor who already consented — start Metrika right away.
+if (hasAnalyticsConsent()) {
+  loadYandexMetrika()
+}
+
+// ssr:true (see analytics.js) disables Metrika's automatic pageview-on-load
+// hit. This is a single-route SPA — "/about", "/team" etc. are pushState
+// paths from scroll navigation (App.vue's scrollTo()), not real page loads —
+// so router.afterEach is the one place that sees every one of them,
+// including the very first. No-ops safely if consent hasn't been given yet.
 router.afterEach(() => {
-  if (typeof window.ym === 'function') {
-    window.ym(YANDEX_METRIKA_ID, 'hit', window.location.href)
-  }
+  trackHit(window.location.href)
 })
 
 new Vue({

@@ -11,6 +11,7 @@
       <Contact id="contact" :nightMode="nightMode" />
       <Footer :nightMode="nightMode" />
     </div>
+    <CookieConsent />
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import Portfolio from "./components/Portfolio";
 import Recommendation from "./components/Recommendation";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CookieConsent from "./components/helpers/CookieConsent";
 
 export default {
   name: "App",
@@ -37,6 +39,7 @@ export default {
     Recommendation,
     Contact,
     Footer,
+    CookieConsent,
   },
   data() {
     return {

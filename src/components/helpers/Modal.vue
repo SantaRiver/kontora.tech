@@ -7,7 +7,7 @@
             <span
               ><a
                 href="#"
-                @click.prevent="open(portfolio.visit)"
+                @click.prevent="open(portfolio.visit, 'visit')"
                 >{{ portfolio.name }}</a
               ></span
             >
@@ -46,14 +46,14 @@
             <button
               class="btn-card mr-3"
               v-if="portfolio.github"
-              @click="open(portfolio.github)"
+              @click="open(portfolio.github, 'github')"
             >
               github
             </button>
             <button
               class="btn-card"
               v-if="portfolio.visit"
-              @click="open(portfolio.visit)"
+              @click="open(portfolio.visit, 'visit')"
             >
               открыть сайт
             </button>
@@ -67,6 +67,7 @@
 
 <script>
 import Gallery from "./Gallery";
+import { trackGoal } from "../../utils/analytics";
 
 export default {
   name: "Modal",
@@ -88,7 +89,10 @@ export default {
     document.getElementsByTagName("body")[0].classList.add("modal-open");
   },
   methods: {
-    open(url) {
+    open(url, kind) {
+      trackGoal(kind === "github" ? "portfolio_github_click" : "portfolio_visit_click", {
+        project: this.portfolio.name,
+      });
       window.open(url, "_blank");
     },
   },
