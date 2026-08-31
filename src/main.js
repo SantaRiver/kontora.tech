@@ -24,6 +24,18 @@ const router = new VueRouter({
   routes // short for `routes: routes`
 })
 
+// Yandex.Metrika is installed with ssr:true (see public/index.html), which
+// disables its automatic pageview-on-load hit. This is a single-route SPA —
+// "/about", "/team" etc. are pushState paths from scroll navigation
+// (App.vue's scrollTo()), not real page loads — so router.afterEach is the
+// one place that sees every one of them, including the very first.
+const YANDEX_METRIKA_ID = 112114909
+router.afterEach(() => {
+  if (typeof window.ym === 'function') {
+    window.ym(YANDEX_METRIKA_ID, 'hit', window.location.href)
+  }
+})
+
 new Vue({
   created () {
     AOS.init()
