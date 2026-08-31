@@ -43,6 +43,15 @@ new Vue({
   created () {
     AOS.init()
   },
+  mounted () {
+    // Tells prerender-spa-plugin's Puppeteer renderer the page is ready to
+    // snapshot (see vue.config.js's renderAfterDocumentEvent) — waiting for
+    // the full render commit instead of a fixed delay. Harmless in a real
+    // browser; nothing listens for it there.
+    this.$nextTick(() => {
+      document.dispatchEvent(new Event('render-event'))
+    })
+  },
   router,
   render: h => h(App),
 }).$mount('#app')

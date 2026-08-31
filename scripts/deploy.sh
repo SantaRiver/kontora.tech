@@ -35,6 +35,9 @@ else
   echo "package-lock.json unchanged -> skipping npm ci"
 fi
 
+echo "==> Ensuring prerender's headless Chrome is installed..."
+npx puppeteer browsers install chrome
+
 echo "==> Building..."
 npm run build
 
