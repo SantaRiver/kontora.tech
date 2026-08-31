@@ -7,7 +7,7 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <div class="section-title">команда</div>
+        <h2 class="section-title">команда</h2>
       </div>
 
       <div class="row justify-content-center">
@@ -25,7 +25,7 @@
               <img :src="m.photo" :alt="m.name" class="team-photo" />
             </div>
             <div class="team-body">
-              <h5 class="team-name">{{ m.name }}</h5>
+              <h3 class="team-name">{{ m.name }}</h3>
               <div class="team-role">{{ m.role }}</div>
               <div class="team-meta">
                 <span class="meta-badge">{{ m.experience }}</span>

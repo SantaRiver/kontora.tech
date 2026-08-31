@@ -7,7 +7,7 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <div class="section-title">о нас.</div>
+        <h2 class="section-title">о нас.</h2>
       </div>
 
       <div class="stats-row" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">

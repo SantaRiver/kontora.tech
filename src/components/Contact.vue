@@ -7,7 +7,7 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <div class="section-title">контакты.</div>
+        <h2 class="section-title">контакты.</h2>
       </div>
 
       <div class="contact-direct" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">

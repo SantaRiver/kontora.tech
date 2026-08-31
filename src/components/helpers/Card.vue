@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="card-body-custom">
-        <h5 class="card-title-custom">{{ portfolio.name }}</h5>
+        <h3 class="card-title-custom">{{ portfolio.name }}</h3>
         <div class="pb-2 tech-row">
           <span
             class="tech-tag mr-1 mb-1"

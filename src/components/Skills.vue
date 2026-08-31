@@ -6,7 +6,7 @@
       data-aos-once="true"
       data-aos-duration="1000"
     >
-      <div class="section-title">навыки.</div>
+      <h2 class="section-title">навыки.</h2>
     </div>
 
     <div class="marquee-wrapper">

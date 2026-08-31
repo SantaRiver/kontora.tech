@@ -7,7 +7,7 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <div class="section-title">портфолио.</div>
+        <h2 class="section-title">портфолио.</h2>
       </div>
 
       <div class="row">
