@@ -15,15 +15,15 @@
           <i class="fab fa-telegram"></i> Telegram
         </a>
         <a :href="links.email" class="contact-link" @click="trackContactClick('email')">
-          <i class="fa fa-envelope"></i> santariver@yandex.ru
+          <i class="fas fa-envelope"></i> santariver@yandex.ru
         </a>
         <a :href="links.phone" class="contact-link" @click="trackContactClick('phone')">
-          <i class="fa fa-phone"></i> +7 917 045-23-01
+          <i class="fas fa-phone"></i> +7 917 045-23-01
         </a>
       </div>
 
       <br />
-      <div class="contact-form-wrap">
+      <form class="contact-form-wrap" @submit.prevent="sendEmail">
         <div
           class="form-group-custom"
           data-aos="fade-up"
@@ -73,7 +73,7 @@
         </div>
 
         <button
-          @click.prevent="sendEmail"
+          type="submit"
           class="btn-submit"
           data-aos="fade"
           data-aos-once="true"
@@ -82,7 +82,7 @@
         >
           Отправить
         </button>
-      </div>
+      </form>
 
       <Snackbar
         :showSnackbar="showSnackbar"

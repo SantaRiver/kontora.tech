@@ -5,6 +5,8 @@
         <img
           :src="portfolio.pictures[0].img"
           alt="Card image cap"
+          loading="lazy"
+          decoding="async"
         />
         <div class="pcard-overlay">
           <button class="overlay-btn" @click.prevent="showModal">

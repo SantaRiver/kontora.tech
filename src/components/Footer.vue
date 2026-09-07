@@ -9,7 +9,7 @@
         <i class="fab fa-github"></i>
       </a>
       <a :href="email" v-tooltip.top="'Email'" @click="trackClick('email')">
-        <i class="fa fa-envelope"></i>
+        <i class="fas fa-envelope"></i>
       </a>
     </div>
   </footer>

@@ -22,7 +22,7 @@
         >
           <div class="team-card">
             <div class="team-photo-wrap">
-              <img :src="m.photo" :alt="m.name" class="team-photo" />
+              <img :src="m.photo" :alt="m.name" class="team-photo" loading="lazy" decoding="async" />
             </div>
             <div class="team-body">
               <h3 class="team-name">{{ m.name }}</h3>
