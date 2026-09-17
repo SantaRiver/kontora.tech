@@ -1,6 +1,19 @@
 import Vue from 'vue'
 import App from './App.vue'
 
+// Self-hosted, bundled with the app (same origin, gzip + long-cache like
+// the rest of the assets) instead of index.html <link>/<script> tags to
+// cdnjs.cloudflare.com / fonts.googleapis.com / stackpath.bootstrapcdn.com —
+// those three render-blocking third-party origins were the site's actual
+// "hangs while loading" cause (RU networks reach Cloudflare/Google slowly
+// or not at all; the browser can't paint anything until they resolve).
+import './assets/fonts/montserrat.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import 'jquery'
+import 'popper.js'
+import 'bootstrap'
+
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import VueParallaxJs from 'vue-parallax-js'
