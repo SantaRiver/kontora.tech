@@ -34,14 +34,6 @@
             <li class="nav-item mx-2">
               <a
                 class="nav-link-custom"
-                href="/team"
-                @click.prevent="$emit('scroll', 'team')"
-                >команда</a
-              >
-            </li>
-            <li class="nav-item mx-2">
-              <a
-                class="nav-link-custom"
                 href="/skills"
                 @click.prevent="$emit('scroll', 'skills')"
                 >навыки</a
@@ -64,7 +56,7 @@
               >
             </li>
             <li class="nav-item ml-3">
-              <a class="btn-cta-nav" href="/contact" @click.prevent="onDiscussClick">Обсудить проект</a>
+              <a class="btn-cta-nav" href="/contact" @click.prevent="onDiscussClick">Бесплатная консультация</a>
             </li>
           </ul>
         </div>

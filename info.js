@@ -17,58 +17,6 @@ let info = {
     email: "mailto:santariver@yandex.ru",
     phone: "tel:+79170452301"
   },
-  milestones: [
-    {
-      name: "Старт студии",
-      date: "2019",
-      description:
-        "Паша начал брать первые заказы на фрилансе — так появилась Kontora."
-    },
-    {
-      name: "Расширение команды",
-      date: "2020",
-      description:
-        "К студии подключился Миша, взял на себя бэкенд-разработку."
-    },
-    {
-      name: "Команда в сборе",
-      date: "2021",
-      description:
-        "Пришёл Хасан — фронтенд-разработчик. Сформировался нынешний состав команды из трёх человек."
-    },
-    {
-      name: "Крупные проекты",
-      date: "2023 — 2024",
-      description:
-        "Запустили Entomosphera, Тапрум, фестиваль «Степная история» и мерч «Степь и Ветер»."
-    }
-  ],
-  team: [
-    {
-      name: "Паша",
-      role: "Тимлид · Backend-разработчик",
-      photo: require("./src/assets/team/pasha.png"),
-      experience: "7 лет опыта",
-      education: "ОГУ — Математика и компьютерные науки",
-      stack: ["Vue.js", "PHP", "Laravel", "Python", "MySQL", "RabbitMQ"]
-    },
-    {
-      name: "Хасан",
-      role: "Frontend-разработчик",
-      photo: require("./src/assets/team/khasan.jpg"),
-      experience: "4 года опыта",
-      education: "ОГУ — Информационные системы и технологии",
-      stack: ["Vue.js", "PHP", "Laravel", "Python", "MySQL", "RabbitMQ"]
-    },
-    {
-      name: "Миша",
-      role: "Backend-разработчик",
-      photo: require("./src/assets/team/misha.png"),
-      experience: "6 лет опыта",
-      education: "ОГУ — ИТ-направление",
-      stack: ["Vue.js", "PHP", "Laravel", "Python", "MySQL", "RabbitMQ"]
-    }
-  ],
   experience: [
     {
       name: "Разработка сайтов",

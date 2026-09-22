@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Prerenders "/" (the app's only real route — "/about", "/team" etc. are
+// Prerenders "/" (the app's only real route — "/about", "/skills" etc. are
 // pushState paths from scroll navigation, not separate pages) into
 // dist/index.html using a real headless Chrome, so crawlers whose JS
 // rendering is less reliable than Google's (Yandex, notably) see fully

@@ -15,14 +15,14 @@
       <p class="hero-sub">{{ description_short }}</p>
       <div class="hero-actions">
         <a class="btn-primary-cta" href="/portfolio" v-scroll-to="'#portfolio'" @click="trackViewWork">Смотреть работы</a>
-        <a class="btn-secondary-cta" href="/contact" v-scroll-to="'#contact'" @click="trackDiscussProject">Обсудить проект</a>
+        <a class="btn-secondary-cta" href="/contact" v-scroll-to="'#contact'" @click="trackDiscussProject">Бесплатная консультация</a>
       </div>
       <div class="hero-stats">
         <span>5+ лет опыта</span>
         <span class="sep">·</span>
-        <span>{{ projectsCount }} {{ projectsLabel }}</span>
-        <span class="sep">·</span>
         <span>Полный цикл</span>
+        <span class="sep">·</span>
+        <span>100% в срок</span>
       </div>
     </div>
   </div>
@@ -30,7 +30,6 @@
 
 <script>
 import info from "../../info";
-import { pluralize } from "../utils/pluralize";
 import { trackGoal } from "../utils/analytics";
 
 export default {
@@ -46,13 +45,7 @@ export default {
       telegram: info.links.telegram,
       github: info.links.github,
       email: info.links.email,
-      projectsCount: info.portfolio.length,
     };
-  },
-  computed: {
-    projectsLabel() {
-      return pluralize(this.projectsCount, ["проект", "проекта", "проектов"]);
-    },
   },
   methods: {
     trackViewWork() {

@@ -8,6 +8,7 @@
         data-aos-duration="1000"
       >
         <h2 class="section-title">контакты.</h2>
+        <p class="contact-sub">Расскажите о задаче — первая консультация бесплатна.</p>
       </div>
 
       <div class="contact-direct" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">
@@ -183,6 +184,16 @@ export default {
   background: var(--bg-primary);
   padding-top: 80px !important;
   padding-bottom: 80px !important;
+}
+
+.contact-section ::v-deep .section-title {
+  margin-bottom: 12px;
+}
+
+.contact-sub {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 52px;
 }
 
 .contact-direct {

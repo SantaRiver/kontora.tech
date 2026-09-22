@@ -17,15 +17,25 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-xl-6 col-md-6 col-sm-12" v-if="education.data.length">
-          <Timeline :data="education" :nightMode="nightMode" />
-        </div>
+      <p class="services-label">услуги</p>
+      <div class="row services-row">
         <div
-          class="col-sm-12"
-          :class="education.data.length ? 'col-xl-6 col-md-6' : 'col-xl-12'"
+          class="col-lg-4 col-md-6 col-sm-12"
+          v-for="(e, idx) in experience"
+          :key="e.name"
+          data-aos="fade-up"
+          data-aos-once="true"
+          data-aos-duration="600"
+          :style="{ 'transition-delay': idx / 4.2 + 's' }"
         >
-          <Timeline :data="experience" :nightMode="nightMode" />
+          <div class="service-card">
+            <div class="service-name">{{ e.name }}{{ e.place ? ", " + e.place : "" }}</div>
+            <div class="service-position">{{ e.position }}</div>
+            <p class="service-desc">{{ e.description }}</p>
+            <div class="service-skills">
+              <span class="skill-badge" v-for="s in e.skills" :key="s">{{ s }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -33,15 +43,10 @@
 </template>
 
 <script>
-import Timeline from "./helpers/Timeline";
 import info from "../../info";
-import { pluralize } from "../utils/pluralize";
 
 export default {
   name: "About",
-  components: {
-    Timeline,
-  },
   props: {
     nightMode: {
       type: Boolean,
@@ -49,21 +54,9 @@ export default {
   },
   data() {
     return {
-      education: {
-        title: "вехи",
-        data: info.milestones,
-      },
-      experience: {
-        title: "услуги",
-        data: info.experience,
-      },
+      experience: info.experience,
       stats: [
         { value: '5+', label: 'лет опыта' },
-        {
-          value: String(info.portfolio.length),
-          label: pluralize(info.portfolio.length, ['проект', 'проекта', 'проектов']),
-        },
-        { value: '3', label: 'специалиста' },
         { value: '100%', label: 'в срок' },
       ],
     };
@@ -80,6 +73,7 @@ export default {
 
 .stats-row {
   display: flex;
+  justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 64px;
@@ -89,12 +83,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 24px;
+  padding: 32px 40px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  flex: 1;
-  min-width: 120px;
+  min-width: 160px;
   transition: var(--transition);
 }
 
@@ -115,5 +108,77 @@ export default {
   color: var(--text-secondary);
   margin-top: 8px;
   text-align: center;
+}
+
+.services-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  margin-bottom: 24px;
+}
+
+.services-row {
+  margin-bottom: -24px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  height: calc(100% - 24px);
+  margin-bottom: 24px;
+  transition: var(--transition);
+}
+
+.service-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+}
+
+.service-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.service-position {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: 4px;
+  margin-bottom: 14px;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.service-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+  transition: var(--transition);
+}
+
+.skill-badge:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 </style>

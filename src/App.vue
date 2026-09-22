@@ -3,14 +3,14 @@
     <Navbar @scroll="scrollTo" :nightMode="nightMode" />
     <div class="parent">
       <Home :nightMode="nightMode" />
-      <About id="about" :nightMode="nightMode" />
-      <Team id="team" :nightMode="nightMode" />
-      <Skills id="skills" :nightMode="nightMode" />
       <Portfolio id="portfolio" :nightMode="nightMode" />
+      <About id="about" :nightMode="nightMode" />
+      <Skills id="skills" :nightMode="nightMode" />
       <Recommendation :nightMode="nightMode" />
       <Contact id="contact" :nightMode="nightMode" />
       <Footer :nightMode="nightMode" />
     </div>
+    <StickyCta :nightMode="nightMode" />
     <CookieConsent />
   </div>
 </template>
@@ -19,12 +19,12 @@
 import Navbar from "./components/Navbar.vue";
 import Home from "./components/Home";
 import About from "./components/About";
-import Team from "./components/Team";
 import Skills from "./components/Skills";
 import Portfolio from "./components/Portfolio";
 import Recommendation from "./components/Recommendation";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import StickyCta from "./components/helpers/StickyCta";
 import CookieConsent from "./components/helpers/CookieConsent";
 
 export default {
@@ -33,12 +33,12 @@ export default {
     Navbar,
     Home,
     About,
-    Team,
     Skills,
     Portfolio,
     Recommendation,
     Contact,
     Footer,
+    StickyCta,
     CookieConsent,
   },
   data() {
@@ -50,7 +50,7 @@ export default {
     };
   },
   mounted() {
-    ["about", "team", "contact", "skills", "portfolio"].forEach((l) => {
+    ["about", "contact", "skills", "portfolio"].forEach((l) => {
       if (window.location.href.includes(l)) {
         var elementPosition = document.getElementById(l).offsetTop;
         window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });

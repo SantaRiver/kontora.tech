@@ -44,7 +44,7 @@ if (hasAnalyticsConsent()) {
 }
 
 // ssr:true (see analytics.js) disables Metrika's automatic pageview-on-load
-// hit. This is a single-route SPA — "/about", "/team" etc. are pushState
+// hit. This is a single-route SPA — "/about", "/skills" etc. are pushState
 // paths from scroll navigation (App.vue's scrollTo()), not real page loads —
 // so router.afterEach is the one place that sees every one of them,
 // including the very first. No-ops safely if consent hasn't been given yet.
